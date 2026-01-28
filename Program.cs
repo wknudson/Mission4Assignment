@@ -51,6 +51,12 @@ do
     }
 
     char move = input[0];
+    // Check if input is a valid number between 1-9
+    if (move < '1' || move > '9')
+    {
+        Console.WriteLine("Invalid input. Please enter a number between 1 and 9.");
+        continue;
+    }
     bool validMove = false;
 
     for (int i = 0; i < board.Length; i++)
@@ -75,20 +81,20 @@ do
 
     if (result == 'x')
     {
-        Console.WriteLine("Player X wins!");
         gt.printCurrentBoard(board);
+        Console.WriteLine("Player X wins!");
         gameWon = true;
     }
     else if (result == 'o')
     {
-        Console.WriteLine("Player O wins!");
         gt.printCurrentBoard(board);
+        Console.WriteLine("Player O wins!");
         gameWon = true;
     }
     else if (result == 'd' && turns == 9)  // Draw only when board is full
     {
-        Console.WriteLine("Draw!");
         gt.printCurrentBoard(board);
+        Console.WriteLine("Draw!");
         gameWon = true;
     }
     else
