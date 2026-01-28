@@ -43,5 +43,38 @@ do
 {
     Console.WriteLine($"Player {currentPlayer}, enter your move (1-9): ");
     string? input = Console.ReadLine();
+    //string to char so that i can update my board
+    char move = input[0];
+    //Update Board
+    for (int i = 0; i < board.Length; i++)
+    {
+        if (board[i] == move)
+        {
+            board[i] = currentPlayer;
+            currentPlayer = 'O';
+            turns++;
+            break;
+        }
+    }
+
+    if (gt.checkWin(board) == 'x')
+    {
+        Console.WriteLine("Player X wins!");
+        gameWon = true;
+    }
+    else if (gt.checkWin(board) == 'o')
+    {
+        Console.WriteLine("Player O wins!");
+        gameWon = true;
+    }
+    else if (gt.checkWin(board) == 'd')
+    {
+        Console.WriteLine("Draw!");
+        gameWon = true;
+    }
+    else
+    {
+        gt.printCurrentBoard(board);
+    }
 
 } while (!gameWon && turns < 9);
