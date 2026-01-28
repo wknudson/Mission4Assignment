@@ -43,38 +43,60 @@ do
 {
     Console.WriteLine($"Player {currentPlayer}, enter your move (1-9): ");
     string? input = Console.ReadLine();
-    //string to char so that i can update my board
+
+    if (string.IsNullOrEmpty(input) || input.Length == 0)
+    {
+        Console.WriteLine("Invalid input. Try again.");
+        continue;
+    }
+
     char move = input[0];
-    //Update Board
+    bool validMove = false;
+
     for (int i = 0; i < board.Length; i++)
     {
         if (board[i] == move)
         {
             board[i] = currentPlayer;
-            currentPlayer = 'O';
             turns++;
+            validMove = true;
             break;
         }
     }
 
-    if (gt.checkWin(board) == 'x')
+    if (!validMove)
+    {
+        Console.WriteLine("Invalid move. Position already taken or invalid number.");
+        continue;
+    }
+
+    // Check for win BEFORE switching players
+    char result = gt.checkWin(board);
+
+    if (result == 'x')
     {
         Console.WriteLine("Player X wins!");
+        gt.printCurrentBoard(board);
         gameWon = true;
     }
-    else if (gt.checkWin(board) == 'o')
+    else if (result == 'o')
     {
         Console.WriteLine("Player O wins!");
+        gt.printCurrentBoard(board);
         gameWon = true;
     }
-    else if (gt.checkWin(board) == 'd')
+    else if (result == 'd' && turns == 9)  // Draw only when board is full
     {
         Console.WriteLine("Draw!");
+        gt.printCurrentBoard(board);
         gameWon = true;
     }
     else
     {
         gt.printCurrentBoard(board);
+        currentPlayer = currentPlayer == 'X' ? 'O' : 'X';  // Switch only if game continues
     }
 
 } while (!gameWon && turns < 9);
+
+Console.WriteLine("Thank you for playing Tic-Tac-Toe");
