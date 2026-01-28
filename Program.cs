@@ -52,7 +52,7 @@ do
 
     char move = input[0];
     // Check if input is a valid number between 1-9
-    if (move < '1' || move > '9')
+    if (input.Length != 1)
     {
         Console.WriteLine("Invalid input. Please enter a number between 1 and 9.");
         continue;
